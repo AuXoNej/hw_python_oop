@@ -85,7 +85,7 @@ class Running(Training):
         return ((coeff_calorie_1 * self.get_mean_speed()
                  - coeff_calorie_2)
                 * self.weight
-                / (self.M_IN_KM * (self.duration * self.IN_MINUTE)))
+                / self.M_IN_KM * (self.duration * self.IN_MINUTE))
 
 
 class SportsWalking(Training):
@@ -112,7 +112,7 @@ class SportsWalking(Training):
         return ((coeff_calorie_1 * self.weight
                  + (self.get_mean_speed()**2 // self.height)
                  * coeff_calorie_2 * self.weight)
-                * self.duration * self.IN_MINUTE)
+                 * self.duration * self.IN_MINUTE)
 
 
 class Swimming(Training):
