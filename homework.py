@@ -53,10 +53,10 @@ class Training:
         """Получить количество затраченных калорий."""
         pass
 
-    def show_training_info(self) -> InfoMessage:
+    def show_training_info(self, training_type) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
 
-        return InfoMessage(self.training_type,
+        return InfoMessage(training_type,
                            self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
@@ -73,8 +73,6 @@ class Running(Training):
                  ) -> None:
 
         super().__init__(action, duration, weight)
-
-        self.training_type = 'Running'
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -101,7 +99,6 @@ class SportsWalking(Training):
         super().__init__(action, duration, weight)
 
         self.height = height
-        self.training_type = 'SportsWalking'
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
@@ -133,8 +130,6 @@ class Swimming(Training):
         self.length_pool = length_pool
         self.count_pool = count_pool
 
-        self.training_type = 'Swimming'
-
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
 
@@ -162,9 +157,11 @@ def read_package(workout_type: str, data: list) -> Training:
 
 
 def main(training: Training) -> None:
-    """Главная функция.""" 
+    """Главная функция."""
 
-    print(training.show_training_info().get_message())
+    info = training.show_training_info(training.__class__.__name__)
+
+    print(info.get_message())
 
 
 if __name__ == '__main__':
