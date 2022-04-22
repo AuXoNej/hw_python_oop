@@ -15,11 +15,12 @@ class InfoMessage:
         self.calories = round(calories, 3)
 
     def get_message(self) -> str:
-        return (f'Тип тренировки: {self.training_type}; '
-                f'Длительность: {self.duration} ч.; '
-                f'Дистанция: {self.distance} км; '
-                f'Ср. скорость: {self.speed} км/ч; '
-                f'Потрачено ккал: {self.calories}.')
+        return (f'''Тип тренировки: {self.training_type};
+Длительность: {self.duration} ч.;
+Дистанция: {self.distance} км;
+Ср. скорость: {self.speed} км/ч;
+Потрачено ккал: {self.calories}.
+''')
 
 
 class Training:
