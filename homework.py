@@ -9,10 +9,10 @@ class InfoMessage:
                  calories: float) -> None:
 
         self.training_type = training_type
-        self.duration = duration
-        self.distance = distance
-        self.speed = speed
-        self.calories = calories
+        self.duration = round(duration, 3)
+        self.distance = round(distance, 3)
+        self.speed = round(speed, 3)
+        self.calories = round(calories, 3)
 
     def get_message(self) -> str:
         return (f'Тип тренировки: {self.training_type}; '
