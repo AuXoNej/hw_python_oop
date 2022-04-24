@@ -26,15 +26,14 @@ class Training:
     """Базовый класс тренировки."""
 
     LEN_STEP = 0.65
+    M_IN_KM = 1000
+    IN_MINUTE = 60
 
     def __init__(self,
                  action: int,
                  duration: float,
                  weight: float
                  ) -> None:
-
-        self.M_IN_KM = 1000
-        self.IN_MINUTE = 60
 
         self.action = action
         self.duration = duration
