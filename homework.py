@@ -25,16 +25,16 @@ class InfoMessage:
 class Training:
     """Базовый класс тренировки."""
 
+    LEN_STEP = 0.65
+
     def __init__(self,
                  action: int,
                  duration: float,
-                 weight: float,
-                 len_step: float = 0.65
+                 weight: float
                  ) -> None:
 
         self.M_IN_KM = 1000
         self.IN_MINUTE = 60
-        self.LEN_STEP = len_step
 
         self.action = action
         self.duration = duration
@@ -126,7 +126,9 @@ class Swimming(Training):
                  count_pool: float
                  ) -> None:
 
-        super().__init__(action, duration, weight, 1.38)
+        super().__init__(action, duration, weight)
+
+        self.LEN_STEP = 1.38
 
         self.length_pool = length_pool
         self.count_pool = count_pool
@@ -140,7 +142,7 @@ class Swimming(Training):
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
 
-        return self.action * self.LEN_STEP / self.M_IN_KM
+        return self.action * 1.38 / self.M_IN_KM
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
