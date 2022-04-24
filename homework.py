@@ -19,7 +19,7 @@ class InfoMessage:
                 f'Длительность: {self.duration:.3f} ч.; '
                 f'Дистанция: {self.distance:.3f} км; '
                 f'Ср. скорость: {self.speed:.3f} км/ч; '
-                f'Потрачено ккал: {self.calories:.3f}. ')
+                f'Потрачено ккал: {self.calories:.3f}.')
 
 
 class Training:
@@ -33,6 +33,7 @@ class Training:
 
         self.M_IN_KM = 1000
         self.IN_MINUTE = 60
+        self.LEN_STEP = 0.65
 
         self.action = action
         self.duration = duration
@@ -43,7 +44,6 @@ class Training:
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
 
-        self.LEN_STEP = 0.65
         return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_mean_speed(self) -> float:
