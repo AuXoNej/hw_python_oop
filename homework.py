@@ -117,6 +117,8 @@ class SportsWalking(Training):
 class Swimming(Training):
     """Тренировка: плавание."""
 
+    LEN_STEP = 1.38
+
     def __init__(self,
                  action: int,
                  duration: float,
@@ -126,8 +128,6 @@ class Swimming(Training):
                  ) -> None:
 
         super().__init__(action, duration, weight)
-
-        self.LEN_STEP = 1.38
 
         self.length_pool = length_pool
         self.count_pool = count_pool
