@@ -31,8 +31,8 @@ class Training:
                  weight: float,
                  ) -> None:
 
-        self.M_IN_KM = 1000
         self.IN_MINUTE = 60
+        self.LEN_STEP = 0.65
 
         self.action = action
         self.duration = duration
@@ -42,9 +42,9 @@ class Training:
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        len_step = 0.65
+        m_in_km = 1000
 
-        return self.action * len_step / self.M_IN_KM
+        return self.action * self.LEN_STEP / m_in_km
 
     def get_mean_speed(self) -> float:
         """Получить среднюю скорость движения."""
@@ -127,6 +127,8 @@ class Swimming(Training):
 
         super().__init__(action, duration, weight)
 
+        self.LEN_STEP = 1.38
+
         self.length_pool = length_pool
         self.count_pool = count_pool
 
@@ -138,9 +140,8 @@ class Swimming(Training):
 
     def get_distance(self) -> float:
         """Получить дистанцию в км."""
-        len_step = 1.38
 
-        return self.action * len_step / self.M_IN_KM
+        return self.action * self.LEN_STEP / self.M_IN_KM
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
