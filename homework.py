@@ -1,6 +1,5 @@
 from dataclasses import dataclass
-from inspect import signature
-from typing import List
+from typing import Callable, Dict, List
 
 
 @dataclass
@@ -52,7 +51,7 @@ class Training:
         """Получить количество затраченных калорий."""
 
         raise NotImplementedError(
-            'Определите get_spent_calories в %s.' % (self.__class__.__name__))
+            f'Определите get_spent_calories в {self.__class__.__name__}.')
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
@@ -146,24 +145,23 @@ class Swimming(Training):
 def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
-    trainings: dict = {'RUN': Running,
-                       'WLK': SportsWalking,
-                       'SWM': Swimming}
+    trainings: Dict[str, Callable[[*List[int]], Training]] = {
+        'RUN': Running,
+        'WLK': SportsWalking,
+        'SWM': Swimming}
 
-    if workout_type not in trainings:
-        return 'Неизвестная тренировка.'
-    if len(data) != len(signature(trainings[workout_type]).parameters):
-        return 'Неверное количество данных тренировки'
-
-    return trainings[workout_type](*data)
+    try:
+        return trainings[workout_type](*data)
+    except KeyError:
+        print('Неизвестная тренировка.')
+    except TypeError:
+        print('Неверные данные тренировки.')
 
 
 def main(training: Training) -> None:
     """Главная функция."""
 
     if not isinstance(training, Training):
-        print(f'Ошибка: {training}')
-
         return
 
     info = training.show_training_info().get_message()
