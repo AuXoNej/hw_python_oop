@@ -1,5 +1,6 @@
 from dataclasses import dataclass
-from typing import Callable, Dict, List
+from inspect import signature
+from typing import Dict, List
 
 
 @dataclass
@@ -145,24 +146,21 @@ class Swimming(Training):
 def read_package(workout_type: str, data: List[int]) -> Training:
     """Прочитать данные полученные от датчиков."""
 
-    trainings: Dict[str, Callable[[*List[int]], Training]] = {
+    trainings: Dict[str, Training] = {
         'RUN': Running,
         'WLK': SportsWalking,
         'SWM': Swimming}
 
-    try:
-        return trainings[workout_type](*data)
-    except KeyError:
-        print('Неизвестная тренировка.')
-    except TypeError:
-        print('Неверные данные тренировки.')
+    if workout_type not in trainings:
+        raise KeyError('Неизвестная тренировка.')
+    if len(data) != len(signature(trainings[workout_type]).parameters):
+        raise TypeError('Неверное количество данных тренировки')
+
+    return trainings[workout_type](*data)
 
 
 def main(training: Training) -> None:
     """Главная функция."""
-
-    if not isinstance(training, Training):
-        return
 
     info = training.show_training_info().get_message()
 
